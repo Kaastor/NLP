@@ -1,9 +1,7 @@
-from nltk import ngrams
-
 from utils import *
 
-'''Implantation of URLNet. Use paper specific terms!!'''
-data_dir = "data/test_urls.csv"  # location of data file
+'''Implantation of URLNet.'''
+data_dir = "data/test_urls.csv"
 
 urls, labels = load_data(data_dir)
 ''' 
@@ -23,3 +21,5 @@ char_sequences_encoded, char_index = tokenize_by_chars(urls)
 # Words in chars - tokenized by chars in words
 words_in_char_sequences_encoded = tokenize_by_words_in_chars(word_sequences, char_index)
 # print([tokenized_to_string(word, char_index) for word in words_in_char_sequences_encoded[0]])
+
+'''1. Char-level CNN'''
