@@ -19,11 +19,7 @@ def load_data(file_path):
         reader = csv.reader(csvfile, delimiter=' ')
         # next(reader)
         for row in reader:
-            if row[0] == '0':
-                y.append([1, 0])
-            else:
-                y.append([0, 1])
-            # y.append(int(row[0]))
+            y.append(int(row[0]))
             x.append(row[1])
 
     return x, y
@@ -159,4 +155,5 @@ def plot_graphs(history, string):
     plt.xlabel("Epochs")
     plt.ylabel(string)
     plt.legend([string, 'val_' + string])
+    plt.savefig("./plots/" + string + ".png")
     plt.show()
