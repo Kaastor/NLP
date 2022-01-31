@@ -19,7 +19,11 @@ def load_data(file_path):
         reader = csv.reader(csvfile, delimiter=' ')
         # next(reader)
         for row in reader:
-            y.append(int(row[0]))
+            if row[0] == '0':
+                y.append([1, 0])
+            else:
+                y.append([0, 1])
+            # y.append(int(row[0]))
             x.append(row[1])
 
     return x, y
