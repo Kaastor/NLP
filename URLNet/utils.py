@@ -1,6 +1,7 @@
 import csv
 import itertools
 
+from matplotlib import pyplot as plt
 from nltk import RegexpTokenizer
 from nltk.probability import FreqDist
 from typing import List
@@ -18,7 +19,7 @@ def load_data(file_path):
         reader = csv.reader(csvfile, delimiter=' ')
         # next(reader)
         for row in reader:
-            y.append(row[0])
+            y.append(int(row[0]))
             x.append(row[1])
 
     return x, y
@@ -95,7 +96,7 @@ def tokenize_sentence(tokenized_sentence: List[str], vocab, encoding_max_len=200
     :param vocab: dict: {'token': id}
     """
     encoded = []
-    for token in tokenized_sentence:
+    for token in tokenized_sentence[:encoding_max_len]:
         encoding = vocab[token]
         encoded.append(encoding if encoding else vocab[OOV_TOKEN])
     i = len(encoded)
@@ -146,3 +147,12 @@ def remove_less_frequent_tokens(f_dist: FreqDist, min_char_frequency):
         if item[1] < min_char_frequency:
             to_remove_keys.append(item[0])
     for key in to_remove_keys: f_dist.pop(key)
+
+
+def plot_graphs(history, string):
+    plt.plot(history.history[string])
+    plt.plot(history.history['val_' + string])
+    plt.xlabel("Epochs")
+    plt.ylabel(string)
+    plt.legend([string, 'val_' + string])
+    plt.show()
